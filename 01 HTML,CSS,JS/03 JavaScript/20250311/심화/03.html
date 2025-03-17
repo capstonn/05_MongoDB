@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        let btn = document.getElementById('btn');
+        let check = document.querySelectorAll('input');
+        //btn 요소가 'click' 된 것이 감지 되었을 때!
+        btn.addEventListener('click', () => {
+          const results = [];
+          // : checked 상태 선택자 이용
+          // -> check된 요소만 선택 ( if문 검사 필요 x)
+          document.querySelectorAll('[name=food]:checked');
+
+          for (let b of boxs) {
+            result.push(b.value);
+          }
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <form>
+      <div>
+        좋아하는 음식은?
+        <label><input type="checkbox" name="food" value="라면" />라면</label>
+        <label><input type="checkbox" name="food" value="만두" />만두</label>
+        <label
+          ><input type="checkbox" name="food" value="불고기" />불고기</label
+        >
+        <input type="button" id="btn" value="전송" />
+      </div>
+    </form>
+  </body>
+</html>

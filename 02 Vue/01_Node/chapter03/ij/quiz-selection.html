@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문제 유형 및 레벨 선택</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* 기본 스타일 설정 */
+      body {
+        background-color: #ffffff;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* 선택지 박스 */
+      .selection-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        font-weight: bold;
+      }
+
+      .selection-box {
+        padding: 10px;
+        margin: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color: white;
+        width: 100%;
+        max-width: 500px; /* 최대 너비 제한 */
+      }
+
+      .selection-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #000; /* 까만 글씨 */
+      }
+
+      .info-box-container {
+        display: flex; /* 문제 유형과 난이도를 일렬로 배치 */
+        justify-content: center; /* 가운데 정렬 */
+        gap: 20px; /* 버튼 간 간격을 20px로 설정 */
+        margin-bottom: 3px;
+        flex-wrap: nowrap;
+      }
+
+      /* 라디오 버튼 스타일 */
+      .radio-container {
+        display: flex;
+        gap: 20px; /* 버튼 간 간격을 20px로 설정 */
+      }
+
+      .radio-label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: white;
+        border: 2px solid #66a6ff;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* 부드러운 색 변화 */
+      }
+
+      input[type='radio'] {
+        display: none; /* 기본 라디오 버튼은 숨기기 */
+      }
+
+      input[type='radio']:checked + .radio-label,
+      .radio-label:hover {
+        background-color: #5596e6;
+        color: white;
+      }
+
+      /* START 버튼 */
+      .start-btn {
+        background-color: #66a6ff;
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        width: 60%; /* START 버튼 크기 줄임 */
+        max-width: 250px; /* 최대 너비 제한 */
+        font-weight: bold;
+      }
+
+      .start-btn:hover {
+        background-color: #5596e6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="selection-container">
+        <div class="selection-box">
+          <p class="selection-title">✔️ 문제 유형을 선택해주세요.</p>
+          <div class="info-box-container radio-container">
+            <input
+              type="radio"
+              class="btn"
+              id="type-html"
+              name="type"
+              value="HTML"
+            />
+            <label class="radio-label" for="type-html">HTML</label>
+
+            <input
+              type="radio"
+              class="btn"
+              id="type-css"
+              name="type"
+              value="CSS"
+            />
+            <label class="radio-label" for="type-css">CSS</label>
+
+            <input
+              type="radio"
+              class="btn"
+              id="type-js"
+              name="type"
+              value="JavaScript"
+            />
+            <label class="radio-label" for="type-js">JavaScript</label>
+          </div>
+        </div>
+
+        <div class="selection-box">
+          <p class="selection-title">✔️ 문제 난이도를 선택해주세요.</p>
+          <div class="info-box-container">
+            <input
+              type="radio"
+              id="level1"
+              class="btn"
+              name="difficult"
+              value="1"
+            />
+            <label class="radio-label" for="level1">Level 1</label>
+
+            <input
+              type="radio"
+              id="level2"
+              class="btn"
+              name="difficult"
+              value="2"
+            />
+            <label class="radio-label" for="level2">Level 2</label>
+
+            <input
+              type="radio"
+              id="level3"
+              class="btn"
+              name="difficult"
+              value="3"
+            />
+            <label class="radio-label" for="level3">Level 3</label>
+          </div>
+        </div>
+
+        <button id="start-btn" class="start-btn">START</button>
+      </div>
+    </div>
+    <script src="quiz.js"></script>
+  </body>
+</html>

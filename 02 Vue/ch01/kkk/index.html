@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz메인페이지</title>
+    <style>
+      body {
+        display: flex;
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+      div.start-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+
+        text-align: center;
+        font-weight: bold;
+
+        border: 5px solid #9fd4ff;
+        padding: 20px;
+        border-radius: 100px;
+
+        margin: 0;
+
+        width: 80%; /* 너비 설정 */
+        max-width: 1000px; /* 최대 너비 설정 */
+        background-color: #f1f9fc;
+      }
+
+      h1 {
+        font-size: 54px;
+        background-color: #9fd4ff;
+        text-shadow: 1px 1px 1px grey;
+      }
+
+      /* #underline {
+        text-decoration-line: underline;
+        text-decoration-style: double;
+      } */
+
+      #start-quiz-btn {
+        background-color: rgb(115, 179, 235);
+        color: white;
+        border-radius: 30px;
+        padding: 15px 50px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      button:hover {
+        background-color: rgb(85, 150, 200);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="start-container">
+      <h1>Web Dev Challenge</h1>
+      <h3>웹 개발 지식을 확인해볼 수 있는 미니 퀴즈입니다!!😊</h3>
+      <h3 id="underline">문제 구성 : HTML, CSS, JavaScript (5문항)</h3>
+      <br />
+      <br />
+      <button id="start-quiz-btn">▶️ 퀴즈 시작</button>
+    </div>
+    <script src="quiz.js"></script>
+  </body>
+</html>

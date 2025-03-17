@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문제 유형 및 레벨 선택</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* 기본 스타일 설정 */
+      body {
+        background-color: #ffffff;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      /* 선택지 박스 */
+      .selection-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        font-weight: bold;
+      }
+
+      .selection-box {
+        padding: 10px;
+        margin: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color: white;
+        width: 100%;
+        max-width: 500px; /* 최대 너비 제한 */
+      }
+
+      .selection-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #000; /* 까만 글씨 */
+      }
+
+      .info-box-container {
+        display: flex; /* 문제 유형과 난이도를 일렬로 배치 */
+        justify-content: center; /* 가운데 정렬 */
+        gap: 10px; /* 간격을 10px로 설정 */
+        margin-bottom: 3px;
+        flex-wrap: nowrap;
+      }
+
+      /* 버튼 스타일 */
+      .btn {
+        font-size: 0.9rem; /* 버튼 크기 줄이기 */
+        padding: 6px 10px; /* 버튼 크기 줄이기 */
+        border: 2px solid #66a6ff; /* 버튼 테두리 추가 */
+        border-radius: 20px;
+        font-weight: bold; /* 버튼 글씨 두껍게 */
+        width: 120px; /* 버튼 너비 고정 */
+        box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+      }
+
+      .btn:hover {
+        background-color: #5596e6;
+        color: white;
+      }
+      .btn.selected {
+        background-color: #5596e6;
+        color: white;
+      }
+
+      /* START 버튼 */
+      .start-btn {
+        background-color: #66a6ff;
+        color: white;
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        width: 60%; /* START 버튼 크기 줄임 */
+        max-width: 250px; /* 최대 너비 제한 */
+        font-weight: bold;
+      }
+
+      .start-btn:hover {
+        background-color: #5596e6;
+      }
+
+      /* start 버튼 비활성화 */
+      .start-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="selection-container">
+        <div class="selection-box">
+          <p class="selection-title">✔️ 문제 유형을 선택해주세요.</p>
+          <div class="info-box-container">
+            <button class="btn">HTML</button>
+            <button class="btn">CSS</button>
+            <button class="btn">JavaScript</button>
+          </div>
+        </div>
+
+        <div class="selection-box">
+          <p class="selection-title">✔️ 문제 난이도를 선택해주세요.</p>
+          <div class="info-box-container">
+            <button class="btn">Level 1</button>
+            <button class="btn">Level 2</button>
+            <button class="btn">Level 3</button>
+          </div>
+        </div>
+
+        <button id="start-btn" class="start-btn">START</button>
+      </div>
+    </div>
+    <script src="quiz.js"></script>
+  </body>
+</html>

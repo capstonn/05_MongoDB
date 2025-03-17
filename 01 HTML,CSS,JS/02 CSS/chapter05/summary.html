@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 반응 선택자 */
+      h1:hover {
+        color: red;
+      }
+      h1:active {
+        color: blue;
+      }
+
+      /* 상태 선택자 */
+      /* input 태그가 사용 가능할 때 */
+      input:enabled {
+        background-color: white;
+      }
+      /* input 태그가 사용 불가능할 때 */
+      input:disabled {
+        background-color: gray;
+      }
+      /* input 태그에 포커스를 맞출 때 */
+      input:focus {
+        background-color: orange;
+      }
+
+      /* 체크박스가 체크되었을 때 */
+      input:checked {
+        outline: 3px solid red;
+      }
+
+      /* 구조 선택자 */
+      #test1 {
+        overflow: hidden;
+      }
+      #test1 > li {
+        list-style: none;
+        float: left;
+        padding: 15px;
+      }
+
+      /* 첫 번째 자식 */
+      /* 1. test1 -> 2.first-child -> li */
+      /* #test1의 자손 중  첫 번째 자식 요소가 li가 맞으면 선택 */
+      #test1 > li:first-child {
+        border-radius: 10px 0 0 10px;
+      }
+
+      /* test1의 자식 li 태그들 중 첫 번째 요소를 선택 */
+      #test1 > li:first-of-type {
+        background-color: hotpink !important;
+      }
+
+      /* 마지막 자식 */
+      #test1 > li:last-child {
+        border-radius: 0 10px 10px 0;
+      }
+
+      /* 짝수 자식 */
+      #test1 > li:nth-child(2n) {
+        background-color: #ff000388;
+      }
+
+      /* 홀수 자식 */
+      #test1 > li:nth-child(2n + 1) {
+        background-color: #455ba888;
+      }
+
+      /* 구조 선택자 사용 시 주의 사항 */
+      /* 각 li 안의 첫 번째 a 모두 선택해서 빨간색으로 표시 */
+      #test2 > li > a:first-child {
+        color: red;
+      }
+
+      /* 첫 번째 li 요소 안의 a 태그만 빨간색으로 표시 */
+      #test3 > li:first-child > a {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>반응 선택자</h1>
+
+    <hr />
+    <h1>상태 선택자</h1>
+
+    <h2>사용 가능 + focus</h2>
+    <input placeholder="초점이 맞춰지면(focus) 배경색 변경" />
+    <h2>사용 불가능</h2>
+    <input disabled="disabled" placeholder="사용 불가능" />
+
+    <h2>checked</h2>
+    <input type="checkbox" checked />
+
+    <hr />
+    <h1>구조 선택자</h1>
+    <ul id="test1">
+      <li>첫 번째</li>
+      <li>두 번째</li>
+      <li>세 번째</li>
+      <li>네 번째</li>
+      <li>다섯 번째</li>
+      <li>여섯 번째</li>
+      <li>일곱 번째</li>
+    </ul>
+
+    <hr />
+    <h2>구조 선택자 사용 시 주의 사항</h2>
+    <h4>첫 번째 li 요소 안의 a 태그만 빨간색으로 표시</h4>
+
+    <h3>잘못된 예</h3>
+    <p>
+      #test1 > li > a:first-child { color: red; } <br />
+      각 li 안의 첫 번째 a 모두 선택해서 빨간색으로 표시
+    </p>
+    <ul id="test2">
+      <li><a href="#">주의 사항</a></li>
+      <li><a href="#">주의 사항</a></li>
+      <li><a href="#">주의 사항</a></li>
+    </ul>
+
+    <h3>올바른 예</h3>
+    <p>
+      #test2 > li:first-child > a { color: red; } <br />
+      첫 번째 li 요소 안의 a 태그만 빨간색으로 표시
+    </p>
+    <ul id="test3">
+      <li><a href="#">주의 사항</a></li>
+      <li><a href="#">주의 사항</a></li>
+      <li><a href="#">주의 사항</a></li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문제 유형 및 레벨 선택</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* 기본 설정 */
+      body {
+        height: 100vh;
+        background-color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        font-weight: bold;
+      }
+
+      .container {
+        text-align: center;
+        width: 100%;
+        max-width: 800px;
+        font-weight: bold;
+      }
+
+      /* 문제 유형, 난이도, 현재 문항 번호 */
+      .info-box-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .info-box {
+        display: inline-block;
+        border: 2px solid #66a6ff;
+        border-radius: 30px;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 1rem;
+        background-color: white;
+        font-weight: bold;
+      }
+
+      .info-box p {
+        margin: 0;
+      }
+
+      /* 문제 번호 및 답안 */
+      .question-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 40px;
+        font-weight: bold;
+      }
+
+      .question-container h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+
+      /* 답안 후보 */
+      .answer-option {
+        display: flex; /* 텍스트와 번호가 가로로 배치되도록 설정 */
+        justify-content: flex-start;
+        align-items: center; /* 수직 중앙 정렬 */
+        background-color: #e2f5ff;
+        color: black;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 30px;
+        padding: 20px 30px;
+        margin: 10px;
+        width: 700px; /* 고정된 길이 설정 */
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+
+      .option-number {
+        margin-right: 10px; /* 번호와 텍스트 사이에 여백 추가 */
+        font-weight: bold;
+      }
+
+      .answer-option:hover {
+        border: 2px solid #6bcbff;
+        font-weight: bold;
+      }
+
+      .answer-option.selected {
+        background-color: #6bcbff;
+        color: white;
+      }
+
+      input[type='radio'] {
+        display: none;
+      }
+      input[type='radio']:checked + span {
+        color: white;
+        /* background-color: #6bcbff; */
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+      .correct {
+        background-color: #00d338;
+        color: white;
+      }
+
+      .incorrect {
+        background-color: #ff0000;
+        color: white;
+      }
+
+      /* 버튼 스타일 */
+
+      .button-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .btn {
+        font-size: 1rem; /* 버튼 크기를 조금 작게 설정 */
+        padding: 10px 20px; /* 버튼 크기 조정 */
+        border-radius: 30px; /* 둥글게 만들기 */
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 150px; /* 버튼 너비 고정 */
+      }
+
+      /* Check Answer 버튼 */
+      .check-answer-btn {
+        background-color: #66a6ff;
+        color: white;
+        border: none;
+      }
+
+      .check-answer-btn:hover {
+        background-color: #5596e6;
+      }
+
+      /* NEXT 버튼 */
+      .next-btn {
+        background-color: #6bcbff;
+        color: white;
+        border: none;
+      }
+
+      .next-btn:hover {
+        background-color: #5596e6;
+      }
+
+      /* SUBMIT 버튼 */
+      .submit-btn {
+        background-color: #ff7f50;
+        color: white;
+        border: none;
+      }
+
+      .submit-btn:hover {
+        background-color: #ff6347;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 퀴즈 페이지 -->
+    <div class="container">
+      <!-- 문제 유형, 난이도, 현재 문항 번호 표시 -->
+      <div class="info-box-container">
+        <div class="info-box">
+          <p>📌 문제 유형 : <span id="quiz-type">HTML</span></p>
+        </div>
+        <div class="info-box">
+          <p>✨ 난이도 : <span id="difficulty-level">Level 1</span></p>
+        </div>
+        <div class="info-box">
+          <p>🔥 <span id="current-question">1</span></p>
+        </div>
+      </div>
+
+      <div class="question-container">
+        <h3 id="question-text">문제를 표시하세요!</h3>
+        <div id="options-container">
+          <label class="answer-option">
+            <input
+              type="radio"
+              name="answer"
+              value="0"
+              onclick="selectAnswer(0)"
+            />
+            <span class="option-number">1.</span> 보기 1
+          </label>
+          <label class="answer-option">
+            <input
+              type="radio"
+              name="answer"
+              value="1"
+              onclick="selectAnswer(1)"
+            />
+            <span class="option-number">2.</span> 보기 2
+          </label>
+          <label class="answer-option">
+            <input
+              type="radio"
+              name="answer"
+              value="2"
+              onclick="selectAnswer(2)"
+            />
+            <span class="option-number">3.</span> 보기 3
+          </label>
+          <label class="answer-option">
+            <input
+              type="radio"
+              name="answer"
+              value="3"
+              onclick="selectAnswer(3)"
+            />
+            <span class="option-number">4.</span> 보기 4
+          </label>
+        </div>
+      </div>
+
+      <!-- 버튼 컨테이너 -->
+      <div class="button-container">
+        <button
+          class="btn check-answer-btn"
+          id="check-answer-btn"
+          onclick="checkAnswer()"
+        >
+          Check Answer
+        </button>
+        <button
+          class="btn next-btn"
+          id="next-btn"
+          style="display: none"
+          onclick="nextQuestion()"
+        >
+          NEXT
+        </button>
+        <button class="btn submit-btn" id="submit-btn" style="display: none">
+          SUBMIT
+        </button>
+      </div>
+    </div>
+    <script src="quiz.js" defer></script>
+  </body>
+</html>

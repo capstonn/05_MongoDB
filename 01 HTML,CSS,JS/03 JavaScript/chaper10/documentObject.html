@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .test {
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test">1</div>
+    <div class="test">2</div>
+    <div class="test">3</div>
+    <div class="test">4</div>
+    <div class="test">5</div>
+
+    <input type="text" name="inputName" value="값" />
+    <br />
+    img : <img src="경로" width="200" height="300" id="img" />
+
+    <script>
+      //클래스명이 같은 요소 모두 얻어오기
+      const list1 = document.getElementsByClassName('test');
+      console.log('list1 : ', list1);
+
+      //css 선택자가 일치하는 모든 요소 얻어오기
+      const list2 = document.querySelectorAll('.test');
+      console.log('list2 : ', list2);
+
+      const input = document.querySelector('#input');
+      const img = document.querySelector('#img');
+      // input, img가 가지고 이는 기본 속성 값 변경
+      input.name = 'aaa';
+      input.type = 'number';
+      imput.value = 1000;
+
+      img.src = 'https://plachold.co/400x200';
+    </script>
+  </body>
+</html>
+
+<!-- inner TtNLS 해석 X -->

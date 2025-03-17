@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Score 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background-color: white; /* 배경을 하얀색으로 변경 */
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-weight: bold; /* 모든 텍스트를 굵게 처리 */
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        width: 80%;
+      }
+
+      /* Score 타이틀 */
+      .score-title {
+        font-size: 2.5rem; /* 크기를 조금 더 키움 */
+        font-weight: bold;
+        margin-bottom: 20px; /* 아래로 간격을 더 추가 */
+      }
+
+      /* 문제 유형, 난이도 박스 */
+      .info-box-container {
+        display: flex; /* 문제 유형과 난이도를 나란히 배치 */
+        justify-content: center;
+        gap: 50px; /* 간격을 20px로 설정 */
+        margin-bottom: 3px;
+      }
+
+      .info-box {
+        border: 2px solid #66a6ff;
+        border-radius: 30px;
+        padding: 20px;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color: white;
+        font-weight: bold;
+      }
+
+      .info-box p {
+        margin: 0;
+      }
+
+      /* 맞은 문제 수 표시 */
+      .correct-count-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 30px 50px;
+        font-weight: bold;
+      }
+
+      .correct-count {
+        background-color: #e2f5ff; /* 하늘색 */
+        color: black;
+        border-radius: 30px;
+        padding: 15px 25px;
+        font-size: 1.5rem;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .correct-answer-text {
+        font-size: 1.5rem;
+        color: gray; /* 회색 텍스트 */
+        font-weight: normal;
+        align-self: center;
+        font-weight: bold;
+      }
+
+      /* 재도전 글자 스타일 */
+      p.rechallenge {
+        font-size: 1.8rem; /* 크기 키움 */
+        font-weight: bold;
+        margin-top: 60px; /* 위쪽 간격 추가 */
+        font-weight: bold;
+      }
+
+      /* 버튼 스타일 */
+      .btn {
+        font-size: 1.1rem; /* 버튼 크기 줄임 */
+        padding: 10px 25px; /* 버튼 크기 줄임 */
+        border-radius: 30px;
+        margin-top: 10px;
+        cursor: pointer;
+        width: auto;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .start-btn {
+        background-color: #66a6ff;
+        color: white;
+        font-weight: bold;
+      }
+
+      .start-btn:hover {
+        background-color: #5596e6;
+      }
+
+      .exit-btn {
+        background-color: #2eff5f;
+        color: white;
+        font-weight: bold;
+      }
+
+      .exit-btn:hover {
+        background-color: #28d13d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="score-title">🎉 Score</div>
+
+      <div class="info-box-container">
+        <div class="info-box">
+          <p>📌 문제 유형 : <span id="score-quiz-type">HTML</span></p>
+        </div>
+
+        <div class="info-box">
+          <p>✨ 난이도 : <span id="score-difficulty-level">Level 1</span></p>
+        </div>
+      </div>
+
+      <div class="correct-count-container">
+        <div class="correct-count">맞은 문제</div>
+        <div class="correct-answer-text" id="correct-answer-count">
+          0 / 10 문제
+        </div>
+      </div>
+
+      <p class="rechallenge">재도전하시겠습니까?</p>
+
+      <div class="btn-container">
+        <button class="btn start-btn" id="restart-btn">START</button>
+        <button class="btn exit-btn" id="exit-btn">EXIT</button>
+      </div>
+    </div>
+    <script src="quiz.js"></script>
+  </body>
+</html>

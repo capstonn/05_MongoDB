@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // date 객체 선언
+      let date = new Date(); //pascal case : 클래스명 선언시 사용
+
+      // 요소 추출
+      let month = date.getMonth() + 1; // getMonth()는 0부터 시작하기 때문에 +1로 달 수를 맞춰줌
+      let hours = date.getHours();
+
+      if (hours < 12) {
+        alert('오전');
+      } else {
+        alert('오후');
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

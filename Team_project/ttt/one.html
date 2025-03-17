@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웹 개발 미니 QUIZ</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="quiz-container">
+      <div id="quiz-header">
+        <div class="header-left">
+          <span class="header-title">WEB DEV CHALLENGE</span>
+        </div>
+        <div class="header-right">
+          <span id="current-question" class="current-question"></span>
+        </div>
+      </div>
+      <div id="quiz">
+        <div class="quiz-info">
+          <div class="info-item">
+            📌 문제 유형 : <span id="quiz-type"></span>
+          </div>
+          <div class="info-item">
+            ✨ 난이도 : <span id="difficulty-level"></span>
+          </div>
+          <div class="info-item">
+            🔥 맞춘 문항 수 : <span id="score-count"></span>
+          </div>
+        </div>
+
+        <div id="question" style="font-weight: bold"></div>
+        <div id="options" class="options-container"></div>
+        <div id="result-message"></div>
+
+        <div class="button-container">
+          <button id="prev-btn" class="navigation-btn">Prev</button>
+          <button id="submit-btn" class="submit-btn">정답 확인</button>
+          <button id="next-btn" class="navigation-btn">Next</button>
+          <button id="restart-btn" class="restart-btn" style="display: none">
+            맞은 문항 수
+          </button>
+        </div>
+
+        <div id="results" class="hide">
+          <h2 style="font-weight: bold">🎉SCORE</h2>
+          <p>총점: <span id="score"></span></p>
+          <!--<div id="summary"></div>-->
+
+          <p style="font-weight: bold">재도전 하시겠습니까?</p>
+          <button id="retry-btn" class="restart-btn">START</button>
+          <button id="exit-btn" class="restart-btn">EXIT</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script1.js"></script>
+  </body>
+</html>

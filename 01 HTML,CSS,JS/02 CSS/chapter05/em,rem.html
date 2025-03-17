@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* root : 페이지 전체에 사용할 기본 스타일, 변수 선언 */
+      :root {
+        font-size: 20px;
+      }
+      /* rem : root의 font-size에 비례하는 단위(반응형에서 많이 사용->일괄 조정) */
+      #test2 > p {
+        font-size: 3rem;
+        /* 20px * 3 == 60px */
+      }
+      #test1 {
+        font-size: 30px;
+      }
+      /* em : 감싸고 있는 요소의 font-size에 비례하는 단위 */
+      #test1 > p {
+        font-size: 1.5em;
+      }
+      /* 30px * 1.5 == 45px */
+    </style>
+  </head>
+  <body>
+    <div id="test1">
+      abc
+      <p>test</p>
+    </div>
+    <div id="test2">
+      <p>test</p>
+    </div>
+  </body>
+</html>

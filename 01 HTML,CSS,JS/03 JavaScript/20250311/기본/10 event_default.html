@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = function () {
+        let button = document.getElementById('button');
+        button.onclick = function () {
+          return false;
+        };
+      };
+
+      //고전 이벤트 btn.onclick =  () => {return false}
+      // 표준 이벤트 모델 + event.preventDefault();
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+      }); //기본 이벤트 동작 막기
+    </script>
+  </head>
+  <body>
+    <a href="https://naver.com" id="button">버튼</a>
+  </body>
+</html>

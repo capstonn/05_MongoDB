@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>상세 정보</legend>
+
+      <div>
+        상품 설명:<br />
+        <textarea rows="5" cols="50">
+상품에 대한 자세한 설명을 입력하세요. </textarea
+        >
+      </div>
+      <br />
+      <div>
+        상품 특성 (해당되는 항목 모두 선택):
+        <br />
+        <br />
+        <input type="checkbox" id="newt" />
+        <label for="new">신상품</label> <br />
+        <input type="checkbox" id="sale" />
+        <label for="sale">할인 상품</label> <br />
+        <input type="checkbox" id="popular" />
+        <label for="popular">인기 상품</label>
+      </div>
+      <br />
+      <div>
+        배송 방법:
+        <br />
+        <br />
+        <input type="radio" id="normal" name="deliver" checked />
+        <label for="normal">일반 배송</label> <br />
+        <input type="radio" id="good" name="deliver" />
+        <label for="good">특급 배송</label> <br />
+        <input type="radio" id="pickup" name="deliver" />
+        <label for="pickup">매장 픽업</label>
+      </div>
+    </fieldset>
+  </body>
+</html>

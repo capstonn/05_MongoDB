@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 소스 코드를 브라우저에 -->
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      // 설정 객체
+      let model = { message: 'h', test: 'what the' };
+      const vm = Vue.createApp({
+        name: 'App',
+        // data 함수 : ViewModel
+        data() {
+          return model; //proxy 객체
+          // data 함수에서 return 되는 객체는 vue의 반응형 시스템에 따라
+        },
+      }).mount('#app');
+      // 항상 등장하는 코드 app
+    </script>
+  </body>
+</html>

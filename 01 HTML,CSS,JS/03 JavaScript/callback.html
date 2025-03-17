@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>callback함수</title>
+  </head>
+  <body>
+    <!-- JS는 body 제일 마지막에 작성하는 것을 권장 -->
+    <script>
+      function delayFn(ms, callback) {
+        //매개 변수 callback :
+        //delayFn() 함수 내에서 나중에 실행할 함수
+
+        console.log('delay함수 호출됨');
+        setTimeout(callback, ms);
+      }
+
+      //함수 호출
+      delayFn(3000, function () {
+        console.log('3초 후 실행');
+      });
+    </script>
+    <!-- function : 단독 정의, 호출 가능 ex) delayFn
+     method : 객체 내 정의 . 객체 생성 후에만 호출 가능 ex) person.eat();
+     -->
+  </body>
+</html>

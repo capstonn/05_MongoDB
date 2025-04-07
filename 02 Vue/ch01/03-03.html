@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" :value="message" />
+      <br />
+      <img :src="imagePath" />
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      // View Model
+      // vue인스턴스 == 애플리케이션 인스턴스 == 루트 컴포넌트 인스턴스
+      const vm = Vue.createApp({
+        name: 'App',
+        data() {
+          //데이터 옵션 : return 되는 객체의 데이터 변경 시
+          return {
+            message: 'v-bind 디렉티브',
+            imagePath: 'https://contactsvc.bmaster.kro.kr/photos/18.jpg',
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

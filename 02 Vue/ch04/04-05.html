@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 양방향 바인딩, 숫자형 -->
+      1보다 큰 수 : <input type="text" v-model.number="num" />
+      <br />
+      <!-- sum은 한번만 호출되고 처음 이후의 sum들은 캐싱된 값을 바로 출력 -->
+      1부터 입력한 값까지의 합: <span>{{sum()}}</span><br />
+      1부터 입력한 값까지의 합: <span>{{sum()}}</span><br />
+      1부터 입력한 값까지의 합: <span>{{sum()}}</span><br />
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      const vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return { num: 0 };
+        },
+        methods: {
+          // sum() : 함수명
+          sum() {
+            console.log('## num:' + this.sum);
+            // proxy 객체들에 의존하고 있는 데이터들에 변화가 생기면 다시 계산됨
+            // - > num이 수정되면 sum이 다시 호출된다
+            // this = 현재 컴포넌트의 인스턴스
+            // num = data옵션에 있는 num
+            let n = parseInt(this.num);
+            if (Number.isNaN(n)) return 0;
+            return (n * (n + 1)) / 2;
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

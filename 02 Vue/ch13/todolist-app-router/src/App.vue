@@ -27,23 +27,23 @@ const { fetchTodoList } = todoListStore;
 
 const isLoading = computed(() => todoListStore.isLoading);
 
-// /**
-//  * provide를 사용하여 자식 컴포넌트들에게 데이터와 함수들을 전달함
-//  * @param {string} name - 전달할 데이터의 이름
-//  * @param {Function} data - 전달할 데이터
-//  */
-// provide(
-//   'todoList',
-//   computed(() => states.todoList)
-// );
+/**
+ * provide를 사용하여 자식 컴포넌트들에게 데이터와 함수들을 전달함
+ * @param {string} name - 전달할 데이터의 이름
+ * @param {Function} data - 전달할 데이터
+ */
+provide(
+  'todoList',
+  computed(() => states.todoList)
+);
 
-// provide('actions', {
-//   addTodo,
-//   deleteTodo,
-//   toggleDone,
-//   updateTodo,
-//   fetchTodoList,
-// });
+provide('actions', {
+  addTodo,
+  deleteTodo,
+  toggleDone,
+  updateTodo,
+  fetchTodoList,
+});
 
 /* 앱이 시작될 때 TodoList를 가져옴 */
 fetchTodoList();

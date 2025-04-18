@@ -1,0 +1,456 @@
+문제1] 프로젝트 생성 및 초기화 명령
+npm init vue contacts-app
+npm install bootstrap@5
+npm install axios
+
+문제2] json-server 실행 명령
+
+server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+
+npm install -g json-server
+json-server contacts.json
+
+
+문제3-1] src/router/index.js 작성
+
+import { createRouter, createWebHistory } from 'vue-router';
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      redirect: '/contacts',
+    },
+
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: () => import('../pages/ContactListPage.vue'),
+      children: [
+        {
+          path: '/contacts/detail/:id',
+          name: 'contacts/detail',
+          component: () => import('../pages/ContactDetailPage.vue'),
+        },
+        {
+          path: '/contacts/write',
+          name: 'contacts/write',
+          component: () => import('../pages/ContactWritePage.vue'),
+        },
+        {
+          path: '/contacts/edit/:id',
+          name: 'contacts/edit',
+          component: () => import('../pages/ContactEditPage.vue'),
+        },
+      ],
+    },
+  ],
+});
+
+export default router;
+
+
+문제3-2] src/App.vue 작성
+
+--------------header.vue--------------
+<template>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <span class="navbar-brand ps-2">Contacts</span>
+
+    <div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/contacts"
+            >목록 보기 페이지</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/contacts/detail/:id"
+            >상세 보기 페이지</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/contacts/write"
+            >새 연락처 추가 페이지</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/contacts/edit/:id"
+            >연락처 수정 페이지</router-link
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</template>
+
+-----------------------------------------------
+src/App.vue
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router';
+import axios from 'axios';
+import { reactive, provide, computed } from 'vue';
+import Header from './components/Header.vue';
+
+const BASEURI = '/api/contacts';
+const states = reactive({ contacts: [] });
+
+//contact 조회
+const fetchContacts = async () => {
+  try {
+    const response = await axios.get(BASEURI);
+    if (response.status === 200) {
+      states.contacts = response.data;
+    } else {
+      alert('데이터조회실패');
+    }
+  } catch (error) {
+    alert('에러' + error);
+  }
+};
+
+//contact 추가
+const addContacts = async (
+  { id, name, tel, address, url },
+  successCallback
+) => {
+  try {
+    const payload = { id, name, tel, address, url };
+    const response = await axios.post(BASEURL, payload);
+    if (response.status === 201) {
+      states.contacts.push({ ...response.data, done: false });
+      successCallback();
+    } else {
+      alert('추가 실패');
+    }
+  } catch (error) {
+    alert('에러발생 : ' + error);
+  }
+};
+
+// contact 변경
+const EditContacts = async (
+  { id, name, tel, address, url },
+  successCallback
+) => {
+  try {
+    const payload = { id, name, tel, address, url };
+    const response = await axios.put(BASEURL + `/${id}`, payload);
+    if (response.status === 200) {
+      let index = states.contacts.findIndex(
+        (contact) => contact.id === contact
+      );
+      states.contact[index] = payload;
+      successCallback();
+    } else {
+      alert('추가 실패');
+    }
+  } catch (error) {
+    alert('에러발생 : ' + error);
+  }
+};
+
+// contact 삭제
+const deleteContacts = async (id) => {
+  try {
+    const response = await axios.delete(BASEURI + `/${id}`);
+    if (response.data.status === 'success') {
+      let index = status.contacts.findIndex((contact) => contact.id === id);
+      states.contacts.splice(index, 1);
+    } else {
+      alert('삭제 실패');
+    }
+  } catch (error) {
+    alert('에러발생');
+  }
+};
+
+provide(
+  'contacts',
+  computed(() => states.contacts)
+);
+provide('actions', {
+  addContacts,
+  deleteContacts,
+  EditContacts,
+  fetchContacts,
+});
+
+fetchContacts();
+</script>
+
+<template>
+  <div class="container">
+    <Header />
+    <router-view />
+  </div>
+</template>
+
+<style scoped>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css');
+</style>
+
+
+
+
+
+
+문제4] src/pages/ContactListPage.vue 작성
+
+<template>
+  <div>
+    <h1><i class="fa-solid fa-address-book"></i>연락처</h1>
+    <table id="list">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>tel</th>
+        </tr>
+      </thead>
+      <tbody id="contacts">
+        <tr v-for="(contact, index) in contacts" :key="contact.id">
+          <td>{{ index + 1 }}</td>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.tel }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      @click="router.push('/contacts/write')"
+    >
+      <i class="fa-solid fa-pen-to-square"></i>새 연락처
+    </button>
+  </div>
+</template>
+<script setup>
+import router from '@/router';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const { contacts } = inject('actions');
+</script>
+<style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css');
+</style>
+
+
+
+
+문제5] src/pages/ContactDetailPage.vue 작성
+
+
+<template lang="">
+  <div>
+    <h1><i class="fa-solid fa-address-book"></i>연락처</h1>
+
+<div>
+
+</div>
+
+    <button type="submit" class="btn btn-primary" @click='router.push('/contacts')'><i class="fa-solid fa-list"></i>
+        목록
+      </button>
+      
+    <button type="submit" class="btn btn-primary" @click='router.push('/contacts')'><i class="fa-solid fa-pen-to-square"></i>
+        수정
+      </button>
+      
+    <button type="submit" class="btn btn-danger" @click='router.push('/contacts')'><i class="fa-solid fa-trash"></i>
+       삭제
+      </button>
+  </div>
+</template>
+<script setup>
+const { contacts } = inject('actions');
+</script>
+<style lang=""></style>
+
+
+
+
+문제6] src/pages/ContactWritePage.vue 작성
+
+
+<template>
+  <div>
+    <h1>새연락처</h1>
+    <form>
+      <div class="mb-3 mt-3">
+        <label for="name">Name:</label>
+        <input
+          type="name"
+          class="form-control"
+          id="name"
+          placeholder="이름을 입력하세요."
+          name="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="tel">tel:</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="tel"
+          placeholder="전화번호룰 입력하세요."
+          name="tel"
+        />
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="address">address:</label>
+        <input
+          type="address"
+          class="form-control"
+          id="address"
+          placeholder="주소를 입력하세요."
+          name="address"
+        />
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="url">photo url:</label>
+        <input
+          type="url"
+          class="form-control"
+          id="url"
+          placeholder="사진의 url을 입력하세요."
+          name="url"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" @click="confirmStore">
+        확인
+      </button>
+      <button type="reset" class="btn btn-primary" @click="gotoList">
+        취소
+      </button>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import axios from 'axios';
+import { inject, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+const contactItem = reactive({ contact: '' });
+
+const { contacts } = inject('actions');
+
+// 취소 클릭시 목록으로
+const gotoList = () => {
+  router.push('/contacts');
+};
+
+// 확인버튼 클릭시
+const confirmStore = (e) => {
+  if (!confirm('내용을 저장하겠습니까?')) {
+    e.preventDefault();
+  } else {
+    axios.post(url, data);
+  }
+};
+
+const addHandler = () => {
+  let { contact } = contactItem;
+  addContacts({ ...contactItem }, () => {
+    router.push('/contacts');
+  });
+};
+</script>
+<style></style>
+
+
+
+문제7] src/pages/ContactEditPage.vue 작성
+
+
+<template lang="">
+  <div>
+    edit
+    <h1><i class="fa-solid fa-address-book"></i>연락처 수정</h1>
+    <form>
+      <div class="mb-3 mt-3">
+        <label for="name">Name:</label>
+        <input
+          type="name"
+          class="form-control"
+          id="name"
+          placeholder="이름을 입력하세요."
+          name="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="tel">tel:</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="tel"
+          placeholder="전화번호룰 입력하세요."
+          name="tel"
+        />
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="address">address:</label>
+        <input
+          type="address"
+          class="form-control"
+          id="address"
+          placeholder="주소를 입력하세요."
+          name="address"
+        />
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="url">photo url:</label>
+        <input
+          type="url"
+          class="form-control"
+          id="url"
+          placeholder="사진의 url을 입력하세요."
+          name="url"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" @click="confirmStore">
+        확인
+      </button>
+      <button
+        type="reset"
+        class="btn btn-primary"
+        @click="router.push('/contacts/detail/:id')"
+      >
+        취소
+      </button>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { inject, reactive } from 'vue';
+
+const { contacts } = inject('actions');
+
+const matchedContacts = contacts.value.find(
+  (contact) => contact.id === parseInt(currentRoute.params.id)
+);
+</script>
+<style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css');
+</style>
+
+
+
+
